@@ -1,0 +1,9 @@
+part of 'home_cubit.dart';
+
+@immutable
+abstract class HomeState {}
+
+class HomeInitial extends HomeState {}
+
+class UserLogoutSuccessState extends HomeState {}
+class UserLogoutErrorState extends HomeState {}
