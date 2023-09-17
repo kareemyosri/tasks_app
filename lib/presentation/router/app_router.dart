@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:tasks_app/presentation/router/app_route.dart';
+import 'package:tasks_app/presentation/screens/create_derpartment.dart';
+import 'package:tasks_app/presentation/screens/create_user.dart';
+import 'package:tasks_app/presentation/screens/update_department.dart';
+import 'package:tasks_app/presentation/screens/update_user.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -13,7 +17,16 @@ Route? onGenerateRouter(RouteSettings settings){
       return MaterialPageRoute(builder: (_)=>  const LoginScreen());
 
     case AppRoute.homeScreen:
-      return MaterialPageRoute(builder: (_)=>  HomeScreen());
+      return MaterialPageRoute(builder: (_)=>  const HomeScreen());
+
+    case AppRoute.createUserScreen:
+      return MaterialPageRoute(builder: (_)=>  const CreateUser());
+    case AppRoute.updateUserScreen:
+      return MaterialPageRoute(builder: (_)=>  const UpdateUser());
+    case AppRoute.createDepartmentScreen:
+      return MaterialPageRoute(builder: (_)=>  const CreateDepartment());
+    case AppRoute.updateDepartmentScreen:
+      return MaterialPageRoute(builder: (_)=>  const UpdateDepartment());
     // case AppRoute.registerScreen:
     //   return MaterialPageRoute(builder: (_)=>  RegisterScreenTask());
     // case AppRoute.loginScreen:

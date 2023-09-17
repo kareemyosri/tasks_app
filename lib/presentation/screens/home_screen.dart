@@ -56,6 +56,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Navigator.pop(context);
                 },
               ),
+              ListTile(
+                title: const Text('Add User'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.createUserScreen);
+                   //Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Update User'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.updateUserScreen);
+
+
+                  // Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Add Department'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.createDepartmentScreen);
+
+
+                  // Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Update Department'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.updateDepartmentScreen);
+
+                  // Navigator.pop(context);
+                },
+              ),
 
             ],
           ),
