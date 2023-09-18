@@ -11,6 +11,8 @@ import 'package:tasks_app/presentation/screens/create_user.dart';
 import 'package:tasks_app/presentation/screens/login_screen.dart';
 import 'package:tasks_app/presentation/screens/update_department.dart';
 import 'package:tasks_app/presentation/screens/update_user.dart';
+import 'package:tasks_app/presentation/screens/user_page/user_page.dart';
+import 'package:tasks_app/presentation/screens/user_tasks.dart';
 
 import 'bussiness_logic/database/local_database/cache_helper.dart';
 import 'bussiness_logic/database/remoteDatabase/DioHelper.dart';
@@ -57,7 +59,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            //home: UpdateDepartment(),
+            //home: UserTasks(),
             onGenerateRoute: onGenerateRouter,
           ),
         );

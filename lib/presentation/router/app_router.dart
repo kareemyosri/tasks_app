@@ -5,6 +5,8 @@ import 'package:tasks_app/presentation/screens/create_derpartment.dart';
 import 'package:tasks_app/presentation/screens/create_user.dart';
 import 'package:tasks_app/presentation/screens/update_department.dart';
 import 'package:tasks_app/presentation/screens/update_user.dart';
+import 'package:tasks_app/presentation/screens/user_page/user_page.dart';
+import 'package:tasks_app/presentation/screens/user_tasks.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -18,6 +20,10 @@ Route? onGenerateRouter(RouteSettings settings){
 
     case AppRoute.homeScreen:
       return MaterialPageRoute(builder: (_)=>  const HomeScreen());
+    case AppRoute.userPageScreen:
+      return MaterialPageRoute(builder: (_)=>  const UserPage());
+    case AppRoute.userTasksScreen:
+      return MaterialPageRoute(builder: (_)=>  const UserTasks());
 
     case AppRoute.createUserScreen:
       return MaterialPageRoute(builder: (_)=>  const CreateUser());

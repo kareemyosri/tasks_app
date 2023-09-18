@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: MySharedKeys.token, value: LoginCubit.get(context).loginModel?.data?.token)
                 .then((value) {
               print(LoginCubit.get(context).loginModel?.data?.token);
-              Navigator.pushNamedAndRemoveUntil(context, AppRoute.homeScreen, (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, AppRoute.userPageScreen, (route) => false);
 
             });
           }

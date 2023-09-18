@@ -5,3 +5,12 @@ enum MySharedKeys{
   loginsuccess,
   token
 }
+
+enum TaskState{
+  newTask,
+  processing,
+  nOTCOMPLETED,
+  eXPIRED,
+  cOMPLETED
+
+}
