@@ -44,9 +44,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: MySharedKeys.token, value: LoginCubit.get(context).loginModel?.data?.token)
                 .then((value) {
               print(LoginCubit.get(context).loginModel?.data?.token);
-              Navigator.pushNamedAndRemoveUntil(context, AppRoute.userPageScreen, (route) => false);
+              //Navigator.pushNamedAndRemoveUntil(context, AppRoute.userPageScreen, (route) => false);
 
             });
+            CashHelper.putString(
+                key: MySharedKeys.userType, value: LoginCubit.get(context).loginModel?.data?.userType)
+                .then((value) {
+              if(LoginCubit.get(context).loginModel?.data?.userType=="employee"){
+                Navigator.pushNamedAndRemoveUntil(context, AppRoute.userTasksScreen, (route) => false);
+              }
+              else {
+                Navigator.pushNamedAndRemoveUntil(context, AppRoute.userPageScreen, (route) => false);
+              }
+
+            });
+
+
           }
           // TODO: implement listener
         },

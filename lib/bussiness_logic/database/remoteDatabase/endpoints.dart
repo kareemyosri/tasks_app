@@ -6,6 +6,9 @@ const String createDepartmentPath="/department/store";
 const String updateDepartmentPath="/department/update/";
 const String createUserPath="/user/store";
 const String updateUserPath="/user/update/";
+const String createTaskPath='/task/store';
+const String getEmployeesPath='/user/show-employees';
+
 
 //const String editProfile="/user/profile/edit";
 //const String resturant="restaurent";

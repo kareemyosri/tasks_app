@@ -101,6 +101,13 @@ class _UserPageState extends State<UserPage> {
                     // Navigator.pop(context);
                   },
                 ),
+                ListTile(
+                  title: const Text('Create Task'),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.createTaskScreen);
+                    //Navigator.pop(context);
+                  },
+                ),
               ],
             ),
           ),
@@ -161,35 +168,44 @@ class _UserPageState extends State<UserPage> {
             ],
             backgroundColor: Colors.transparent,
             elevation: 0,
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.person_2_outlined,
-                        color: AppTheme.primaryColor2,
+            bottom: const PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TabBar(
+                  //labelPadding: EdgeInsets.symmetric(horizontal: 20.0),
+
+                  isScrollable: true,
+                  tabs: [
+                    Tab(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.person_2_outlined,
+                            color: AppTheme.primaryColor2,
+                          ),
+                          SizedBox(width: 8),
+                          Text('USERS'),
+                        ],
                       ),
-                      SizedBox(width: 8),
-                      Text('USERS'),
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.view_week_outlined,
-                        color: AppTheme.primaryColor,
+                    ),
+                    Tab(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.view_week_outlined,
+                            color: AppTheme.primaryColor,
+                          ),
+                          SizedBox(width: 8),
+                          Text('TASKS'),
+                        ],
                       ),
-                      SizedBox(width: 8),
-                      Text('TASKS'),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           body: const Padding(

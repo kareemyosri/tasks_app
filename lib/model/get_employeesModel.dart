@@ -1,14 +1,19 @@
-class CreateUserModel {
+class GetEmployeesModel {
   String? message;
-  Data? data;
+  List<Data>? data;
   bool? status;
   int? code;
 
-  CreateUserModel({this.message, this.data, this.status, this.code});
+  GetEmployeesModel({this.message, this.data, this.status, this.code});
 
-  CreateUserModel.fromJson(Map<String, dynamic> json) {
+  GetEmployeesModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
     status = json['status'];
     code = json['code'];
   }
@@ -17,7 +22,7 @@ class CreateUserModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['status'] = this.status;
     data['code'] = this.code;

@@ -1,15 +1,16 @@
 enum MySharedKeys{
   email,
   password,
-  onboarding,
   loginsuccess,
-  token
+  token,
+  userType
 }
 
 enum TaskState{
   newTask,
   processing,
   nOTCOMPLETED,
+  cANCELLED,
   eXPIRED,
   cOMPLETED
 

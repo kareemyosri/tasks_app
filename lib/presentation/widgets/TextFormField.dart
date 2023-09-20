@@ -17,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
    final Color? errorColor;
    final AutovalidateMode? autoValidateMode;
    final String? errorText;
+   final int? maxLines;
 
    const CustomTextFormField({super.key,
      required this.controller,
@@ -29,12 +30,13 @@ class CustomTextFormField extends StatelessWidget {
      this.onTap,
      this.prefixIconColor,
      this.suffixIconColor,
-     required this.obscureText, this.errorColor, this.autoValidateMode, this.errorText
+     required this.obscureText, this.errorColor, this.autoValidateMode, this.errorText, this.maxLines=1
    });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       autovalidateMode: autoValidateMode,
       controller: controller,
       keyboardType: keyboardType,

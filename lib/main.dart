@@ -5,15 +5,19 @@ import 'package:tasks_app/bussiness_logic/database/user/user_cubit.dart';
 import 'package:tasks_app/bussiness_logic/department/department_cubit.dart';
 import 'package:tasks_app/bussiness_logic/home/home_cubit.dart';
 import 'package:tasks_app/bussiness_logic/login/login_cubit.dart';
+import 'package:tasks_app/bussiness_logic/task/task_cubit.dart';
 import 'package:tasks_app/presentation/router/app_router.dart';
+import 'package:tasks_app/presentation/screens/add_new_task.dart';
 import 'package:tasks_app/presentation/screens/create_derpartment.dart';
 import 'package:tasks_app/presentation/screens/create_user.dart';
 import 'package:tasks_app/presentation/screens/login_screen.dart';
+import 'package:tasks_app/presentation/screens/single_task.dart';
 import 'package:tasks_app/presentation/screens/update_department.dart';
 import 'package:tasks_app/presentation/screens/update_user.dart';
 import 'package:tasks_app/presentation/screens/user_page/user_page.dart';
 import 'package:tasks_app/presentation/screens/user_tasks.dart';
 
+import 'bussiness_logic/add_new_task/addtask_cubit.dart';
 import 'bussiness_logic/database/local_database/cache_helper.dart';
 import 'bussiness_logic/database/remoteDatabase/DioHelper.dart';
 import 'core/bloc_observer.dart';
@@ -50,6 +54,12 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => UserCubit(),
             ),
+            BlocProvider(
+              create: (context) => AddtaskCubit()..getEmployees(),
+            ),
+            BlocProvider(
+              create: (context) => TaskCubit(),
+            ),
 
           ],
           child: MaterialApp(
@@ -59,8 +69,8 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            //home: UserTasks(),
-            onGenerateRoute: onGenerateRouter,
+           // home: SingleTaskScreen(),
+           onGenerateRoute: onGenerateRouter,
           ),
         );
       },

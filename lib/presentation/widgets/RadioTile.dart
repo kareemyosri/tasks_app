@@ -13,7 +13,7 @@ class RadioTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 90,
+      width: 28.w,
       height: 3.h,
       padding: const EdgeInsets.all(5),
       decoration: ShapeDecoration(
@@ -29,12 +29,17 @@ class RadioTile extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
               value: value, groupValue: groupValue, onChanged:onChanged),
-          Text(userType,
-          style: GoogleFonts.roboto(
-            color:AppTheme.greyColor,
-            fontSize: 6.sp,
-            fontWeight: FontWeight.w400,
-          ),
+          Flexible(
+           // fit: BoxFit.contain,
+            child: Text(userType,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.roboto(
+              color:AppTheme.greyColor,
+              fontSize: 6.sp,
+              fontWeight: FontWeight.w400,
+            ),
+            ),
           )
         ],
       ),
