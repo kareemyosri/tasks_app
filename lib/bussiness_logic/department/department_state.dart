@@ -12,3 +12,9 @@ class CreateDepartmentErrorState extends DepartmentState {}
 class UpdateDepartmentLoadingState extends DepartmentState {}
 class UpdateDepartmentSuccessfullyState extends DepartmentState {}
 class UpdateDepartmentErrorState extends DepartmentState {}
+
+class GetManagersLoadingState extends DepartmentState {}
+class GetManagersSuccessfullyState extends DepartmentState {}
+class GetManagersErrorState extends DepartmentState {}
+
+class GetValueSuccessfullyState extends DepartmentState {}

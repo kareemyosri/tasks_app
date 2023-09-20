@@ -7,3 +7,7 @@ class HomeInitial extends HomeState {}
 
 class UserLogoutSuccessState extends HomeState {}
 class UserLogoutErrorState extends HomeState {}
+
+class DepartmentsAndEmployeesLoadingState extends HomeState {}
+class DepartmentsAndEmployeesSuccessfullyState extends HomeState {}
+class DepartmentsAndEmployeesErrorState extends HomeState {}

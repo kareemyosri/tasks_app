@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasks_app/presentation/screens/user_page/tasks.dart';
 import 'package:tasks_app/presentation/screens/user_page/users.dart';
 import 'package:tasks_app/presentation/styles.dart';
 
 import '../../../bussiness_logic/database/local_database/cache_helper.dart';
 import '../../../bussiness_logic/home/home_cubit.dart';
+import '../../../bussiness_logic/task/task_cubit.dart';
 import '../../../core/enums.dart';
 import '../../router/app_route.dart';
 
@@ -25,6 +27,8 @@ class _UserPageState extends State<UserPage> {
     // TODO: implement initState
     super.initState();
     cubit = HomeCubit.get(context);
+    cubit.getDepartmentsAndEmployees();
+    TaskCubit.get(context).getTasks();
   }
 
   @override
@@ -75,32 +79,31 @@ class _UserPageState extends State<UserPage> {
                     // Navigator.pop(context);
                   },
                 ),
-                ListTile(
-                  title: const Text('Add Department'),
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, AppRoute.createDepartmentScreen);
+                Visibility(
+                  visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                  child: ListTile(
+                    title: const Text('Add Department'),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, AppRoute.createDepartmentScreen);
 
-                    // Navigator.pop(context);
-                  },
+                      // Navigator.pop(context);
+                    },
+                  ),
                 ),
-                ListTile(
-                  title: const Text('Update Department'),
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, AppRoute.updateDepartmentScreen);
+                Visibility(
+                  visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                  child: ListTile(
+                    title: const Text('Update Department'),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, AppRoute.updateDepartmentScreen);
 
-                    // Navigator.pop(context);
-                  },
+                      // Navigator.pop(context);
+                    },
+                  ),
                 ),
-                ListTile(
-                  title: const Text('user Tasks'),
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRoute.userTasksScreen);
 
-                    // Navigator.pop(context);
-                  },
-                ),
                 ListTile(
                   title: const Text('Create Task'),
                   onTap: () {
@@ -213,9 +216,7 @@ class _UserPageState extends State<UserPage> {
             child: TabBarView(
               children: [
                 UsersScreen(),
-                Center(
-                  child: Text("Tasks"),
-                ),
+                Tasks()
               ],
             ),
           ),

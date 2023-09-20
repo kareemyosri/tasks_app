@@ -1,6 +1,6 @@
 class GetEmployeesModel {
   String? message;
-  List<Data>? data;
+  List<EmployeeData>? data;
   bool? status;
   int? code;
 
@@ -9,9 +9,9 @@ class GetEmployeesModel {
   GetEmployeesModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <EmployeeData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new EmployeeData.fromJson(v));
       });
     }
     status = json['status'];
@@ -30,7 +30,7 @@ class GetEmployeesModel {
   }
 }
 
-class Data {
+class EmployeeData {
   int? id;
   String? userCode;
   String? name;
@@ -40,7 +40,7 @@ class Data {
   String? userType;
   int? departmentId;
 
-  Data(
+  EmployeeData(
       {this.id,
         this.userCode,
         this.name,
@@ -50,7 +50,7 @@ class Data {
         this.userType,
         this.departmentId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  EmployeeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userCode = json['user_code'];
     name = json['name'];

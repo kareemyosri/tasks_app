@@ -47,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //Navigator.pushNamedAndRemoveUntil(context, AppRoute.userPageScreen, (route) => false);
 
             });
+
             CashHelper.putString(
                 key: MySharedKeys.userType, value: LoginCubit.get(context).loginModel?.data?.userType)
                 .then((value) {

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasks_app/bussiness_logic/add_new_task/addtask_cubit.dart';
 
+import '../../core/constants.dart';
 import '../styles.dart';
 import '../widgets/ElvatedButton.dart';
 import '../widgets/TextFormField.dart';
@@ -142,8 +143,8 @@ class _AddNewTaskState extends State<AddNewTask> {
                         return DropdownButtonFormField(
                           items: cubit.employees
                               .map((item) => DropdownMenuItem<String>(
-                                    value: item.keys.first,
-                                    child: Text(item.keys.first),
+                                    value: item.email,
+                                    child: Text(item.email??""),
                                   ))
                               .toList(),
                           onChanged: (String? newValue) {
@@ -195,7 +196,7 @@ class _AddNewTaskState extends State<AddNewTask> {
                         cubit.createTask(
                             title: titleController.text,
                             description: descriptionController.text,
-                            employeeId: cubit.selectedValue.toString(),
+                            employeeId:   selectedValue.toString(),
                             startDate: fullDate[0],
                             endDate: fullDate[1]);
                       }, 'CREATE'),

@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tasks_app/bussiness_logic/home/home_cubit.dart';
+import 'package:tasks_app/bussiness_logic/task/task_cubit.dart';
 
-import '../../bussiness_logic/database/local_database/cache_helper.dart';
 import '../../core/enums.dart';
 import '../router/app_route.dart';
 import '../styles.dart';
@@ -20,24 +19,24 @@ class UserTasks extends StatefulWidget {
 }
 
 class _UserTasksState extends State<UserTasks> {
-  late HomeCubit cubit;
+  late TaskCubit cubit;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    cubit=HomeCubit.get(context);
+    cubit=TaskCubit.get(context);
   }
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
+    return BlocListener<TaskCubit,TaskState>(
   listener: (context, state) {
-    if (state is UserLogoutSuccessState) {
-      CashHelper.removeCacheKey(key: MySharedKeys.token)
-          .then((value) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, AppRoute.loginScreen, (route) => false);
-      });
-    }
+    // if (state is UserLogoutSuccessState) {
+    //   CashHelper.removeCacheKey(key: MySharedKeys.token)
+    //       .then((value) {
+    //     Navigator.pushNamedAndRemoveUntil(
+    //         context, AppRoute.loginScreen, (route) => false);
+    //   });
+    // }
 
   },
   child: Scaffold(
@@ -56,42 +55,10 @@ class _UserTasksState extends State<UserTasks> {
               onTap: () {
                 cubit.userLogout();
 
-                // Navigator.pop(context);
+                 Navigator.pushNamedAndRemoveUntil(context, AppRoute.loginScreen, (route) => false);
               },
             ),
-            ListTile(
-              title: const Text('Add User'),
-              onTap: () {
-                Navigator.pushNamed(context, AppRoute.createUserScreen);
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Update User'),
-              onTap: () {
-                Navigator.pushNamed(context, AppRoute.updateUserScreen);
 
-
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Add Department'),
-              onTap: () {
-                Navigator.pushNamed(context, AppRoute.createDepartmentScreen);
-
-
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Update Department'),
-              onTap: () {
-                Navigator.pushNamed(context, AppRoute.updateDepartmentScreen);
-
-                // Navigator.pop(context);
-              },
-            ),
 
           ],
         ),
@@ -109,7 +76,7 @@ class _UserTasksState extends State<UserTasks> {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            Text('11/9/2023',
+            Text(DateTime.now().toString(),
               style:GoogleFonts.roboto(
                 color: AppTheme.greyColor,
                 fontSize: 10.sp,
@@ -245,13 +212,18 @@ class _UserTasksState extends State<UserTasks> {
               ],
             ),
             SizedBox(height: 2.h,),
-            ListView.separated(
+            BlocBuilder<TaskCubit, TaskState>(
+  builder: (context, state) {
+    return ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context,index)=>
-                 const TaskView(state: TaskState.newTask,),
+                  TaskView(taskData: cubit.employeeTasks[index]),
                 separatorBuilder: (context,index)=>SizedBox(height: 2.h,),
-                itemCount: 5),
+                itemCount: cubit.employeeTasks.length);
+  },
+),
+            SizedBox(height: 10.h,)
           ],
         ),
       ),

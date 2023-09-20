@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../bussiness_logic/add_new_task/addtask_cubit.dart';
+import '../../bussiness_logic/database/local_database/cache_helper.dart';
 import '../../bussiness_logic/database/user/user_cubit.dart';
+import '../../core/enums.dart';
 import '../styles.dart';
 import '../widgets/ElvatedButton.dart';
 import '../widgets/RadioTile.dart';
@@ -114,14 +117,20 @@ class _UpdateUserState extends State<UpdateUser> {
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true),
-              SizedBox(
-                height: 2.h,
+              Visibility(
+                visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                child: SizedBox(
+                  height: 2.h,
+                ),
               ),
-              CustomTextFormField(
-                  validator: (value) {},
-                  controller: departmentIdController,
-                  hintText: 'DepartmentID',
-                  obscureText: false),
+              Visibility(
+                visible:CashHelper.getString(key: MySharedKeys.userType)=='admin' ,
+                child: CustomTextFormField(
+                    validator: (value) {},
+                    controller: departmentIdController,
+                    hintText: 'DepartmentID',
+                    obscureText: false),
+              ),
               SizedBox(
                 height: 2.h,
               ),
@@ -133,42 +142,61 @@ class _UpdateUserState extends State<UpdateUser> {
               SizedBox(
                 height: 2.h,
               ),
-              BlocBuilder<UserCubit, UserState>(
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RadioTile(
-                        userType: "Admin",
-                        value: 0,
-                        groupValue: cubit.buttonValueUpdate,
-                        onChanged: (value) {
-                          cubit.changeUpdateUserValue(value);
-                        },
-                      ),
-                      RadioTile(
-                        userType: "Manager",
-                        value: 1,
-                        groupValue: cubit.buttonValueUpdate,
-                        onChanged: (value) {
-                          cubit.changeUpdateUserValue(value);
-                        },
-                      ),
-                      RadioTile(
-                        userType: "User",
-                        value: 2,
-                        groupValue: cubit.buttonValueUpdate,
-                        onChanged: (value) {
-                          cubit.changeUpdateUserValue(value);
-                        },
-                      ),
-                    ],
-                  );
-                },
+              Visibility(
+                visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                child: BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RadioTile(
+                          userType: "Admin",
+                          value: 0,
+                          groupValue: cubit.buttonValueUpdate,
+                          onChanged: (value) {
+                            cubit.changeUpdateUserValue(value);
+                          },
+                        ),
+                        RadioTile(
+                          userType: "Manager",
+                          value: 1,
+                          groupValue: cubit.buttonValueUpdate,
+                          onChanged: (value) {
+                            cubit.changeUpdateUserValue(value);
+                          },
+                        ),
+                        RadioTile(
+                          userType: "User",
+                          value: 2,
+                          groupValue: cubit.buttonValueUpdate,
+                          onChanged: (value) {
+                            cubit.changeUpdateUserValue(value);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 height: 2.h,
               ),
+              BlocBuilder<AddtaskCubit, AddtaskState>(
+                builder: (context, state) {
+                  return DropdownButtonFormField(
+                    items: AddtaskCubit.get(context).employees
+                        .map((item) => DropdownMenuItem<String>(
+                      value: item.email,
+                      child: Text(item.email??""),
+                    ))
+                        .toList(),
+                    onChanged: (String? newValue) {
+                      AddtaskCubit.get(context).getIdValue(newValue);
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 2.h,),
               CustomElevatedButton(() {
                 cubit.updateUser(name: nameController.text, email: emailController.text,
                     phone: phoneController.text, password: passwordController.text,

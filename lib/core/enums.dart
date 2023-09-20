@@ -6,12 +6,11 @@ enum MySharedKeys{
   userType
 }
 
-enum TaskState{
-  newTask,
-  processing,
-  nOTCOMPLETED,
-  cANCELLED,
-  eXPIRED,
-  cOMPLETED
-
-}
+// enum TaskStates{
+//   newTask,
+//   processing,
+//   cOMPLETED,
+//   nOTCOMPLETED,
+//   cANCELLED,
+//   eXPIRED,
+// }

@@ -12,5 +12,7 @@ class AppRoute{
   static const String updateDepartmentScreen="UpdateDepartmentScreen";
 
   static const String createTaskScreen="CreateTaskScreen";
+  static const String singleTaskScreen="SingleTaskScreen";
+
 
 }

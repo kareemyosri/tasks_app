@@ -10,6 +10,15 @@ const String createTaskPath='/task/store';
 const String getEmployeesPath='/user/show-employees';
 
 
+const String getEmployeeTask='/task/index';
+
+const String getDepartmentsWithEmployees='/department/index';
+const String getEmployeesOfDepartment='/user/show-employees';
+
+const String getManagersNotAssigned='/user/show-managers';
+
+
+
 //const String editProfile="/user/profile/edit";
 //const String resturant="restaurent";
 //const String food="food";

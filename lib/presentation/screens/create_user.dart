@@ -5,6 +5,8 @@ import 'package:sizer/sizer.dart';
 import 'package:tasks_app/bussiness_logic/database/user/user_cubit.dart';
 import 'package:tasks_app/presentation/widgets/RadioTile.dart';
 
+import '../../bussiness_logic/database/local_database/cache_helper.dart';
+import '../../core/enums.dart';
 import '../styles.dart';
 import '../widgets/ElvatedButton.dart';
 import '../widgets/TextFormField.dart';
@@ -119,34 +121,37 @@ class _CreateUserState extends State<CreateUser> {
                 ),
                 BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RadioTile(
-                          userType: "Admin",
-                          value: 0,
-                          groupValue: cubit.buttonValue,
-                          onChanged: (value) {
-                            cubit.changeUserValue(value);
-                          },
-                        ),
-                        RadioTile(
-                          userType: "Manager",
-                          value: 1,
-                          groupValue: cubit.buttonValue,
-                          onChanged: (value) {
-                            cubit.changeUserValue(value);
-                          },
-                        ),
-                        RadioTile(
-                          userType: "User",
-                          value: 2,
-                          groupValue: cubit.buttonValue,
-                          onChanged: (value) {
-                            cubit.changeUserValue(value);
-                          },
-                        ),
-                      ],
+                    return Visibility(
+                      visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RadioTile(
+                            userType: "Admin",
+                            value: 0,
+                            groupValue: cubit.buttonValue,
+                            onChanged: (value) {
+                              cubit.changeUserValue(value);
+                            },
+                          ),
+                          RadioTile(
+                            userType: "Manager",
+                            value: 1,
+                            groupValue: cubit.buttonValue,
+                            onChanged: (value) {
+                              cubit.changeUserValue(value);
+                            },
+                          ),
+                          RadioTile(
+                            userType: "User",
+                            value: 2,
+                            groupValue: cubit.buttonValue,
+                            onChanged: (value) {
+                              cubit.changeUserValue(value);
+                            },
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),

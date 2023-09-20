@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasks_app/bussiness_logic/department/department_cubit.dart';
+import 'package:tasks_app/bussiness_logic/home/home_cubit.dart';
 
 import '../styles.dart';
 import '../widgets/ElvatedButton.dart';
@@ -25,6 +26,7 @@ class _UpdateDepartmentState extends State<UpdateDepartment> {
     // TODO: implement initState
     super.initState();
     cubit = DepartmentCubit.get(context);
+    cubit.getManagers();
   }
 
   @override
@@ -93,18 +95,44 @@ class _UpdateDepartmentState extends State<UpdateDepartment> {
                 SizedBox(
                   height: 2.h,
                 ),
-                CustomTextFormField(
-                    validator: (value) {
-
-                    },
-                    controller: managerController,
-                    hintText: 'Assigned Manager',
-                    obscureText: false),
+                BlocBuilder<DepartmentCubit, DepartmentState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                      items: cubit.managers
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item.email,
+                        child: Text(item.email??""),
+                      ))
+                          .toList(),
+                      onChanged: (String? newValue) {
+                        cubit.getIdValue(newValue);
+                      },
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                BlocBuilder<DepartmentCubit, DepartmentState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                      items: HomeCubit.get(context).departmentsAndEmployeesData
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item.name,
+                        child: Text(item.name??""),
+                      ))
+                          .toList(),
+                      onChanged: (String? newValue) {
+                        cubit.getIdValue2(newValue,HomeCubit.get(context).departmentsAndEmployeesData);
+                      },
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 2.h,
                 ),
                 CustomElevatedButton(() {
-                  cubit.updateDepartment(nameController.text,managerController.text);
+                  cubit.updateDepartment(nameController.text);
                 }, 'Update'),
                 BlocBuilder<DepartmentCubit, DepartmentState>(
                   builder: (context, state) {

@@ -1,14 +1,19 @@
-class UpdateDepartmentModel {
+class ManagersModel {
   String? message;
-  DepartmentData? data;
+  List<ManagerData>? data;
   bool? status;
   int? code;
 
-  UpdateDepartmentModel({this.message, this.data, this.status, this.code});
+  ManagersModel({this.message, this.data, this.status, this.code});
 
-  UpdateDepartmentModel.fromJson(Map<String, dynamic> json) {
+  ManagersModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new DepartmentData.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <ManagerData>[];
+      json['data'].forEach((v) {
+        data!.add(new ManagerData.fromJson(v));
+      });
+    }
     status = json['status'];
     code = json['code'];
   }
@@ -17,7 +22,7 @@ class UpdateDepartmentModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['status'] = this.status;
     data['code'] = this.code;
@@ -25,32 +30,7 @@ class UpdateDepartmentModel {
   }
 }
 
-class DepartmentData {
-  int? id;
-  String? name;
-  Manager? manager;
-
-  DepartmentData({this.id, this.name, this.manager});
-
-  DepartmentData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    manager =
-    json['manager'] != null ? new Manager.fromJson(json['manager']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.manager != null) {
-      data['manager'] = this.manager!.toJson();
-    }
-    return data;
-  }
-}
-
-class Manager {
+class ManagerData {
   int? id;
   String? userCode;
   String? name;
@@ -58,17 +38,19 @@ class Manager {
   int? phone;
   String? status;
   String? userType;
+  int? departmentId;
 
-  Manager(
+  ManagerData(
       {this.id,
         this.userCode,
         this.name,
         this.email,
         this.phone,
         this.status,
-        this.userType});
+        this.userType,
+        this.departmentId});
 
-  Manager.fromJson(Map<String, dynamic> json) {
+  ManagerData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userCode = json['user_code'];
     name = json['name'];
@@ -76,6 +58,7 @@ class Manager {
     phone = json['phone'];
     status = json['status'];
     userType = json['user_type'];
+    departmentId = json['department_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +70,7 @@ class Manager {
     data['phone'] = this.phone;
     data['status'] = this.status;
     data['user_type'] = this.userType;
+    data['department_id'] = this.departmentId;
     return data;
   }
 }

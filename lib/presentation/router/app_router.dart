@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasks_app/presentation/router/app_route.dart';
 import 'package:tasks_app/presentation/screens/create_derpartment.dart';
 import 'package:tasks_app/presentation/screens/create_user.dart';
+import 'package:tasks_app/presentation/screens/single_task.dart';
 import 'package:tasks_app/presentation/screens/update_department.dart';
 import 'package:tasks_app/presentation/screens/update_user.dart';
 import 'package:tasks_app/presentation/screens/user_page/user_page.dart';
@@ -36,6 +37,9 @@ Route? onGenerateRouter(RouteSettings settings){
       return MaterialPageRoute(builder: (_)=>  const UpdateDepartment());
     case AppRoute.createTaskScreen:
       return MaterialPageRoute(builder: (_)=>  const AddNewTask());
+    case AppRoute.singleTaskScreen:
+      final args=settings.arguments as SingleTaskScreen;
+      return MaterialPageRoute(builder: (_)=>   SingleTaskScreen(taskData: args.taskData,));
     // case AppRoute.registerScreen:
     //   return MaterialPageRoute(builder: (_)=>  RegisterScreenTask());
     // case AppRoute.loginScreen:

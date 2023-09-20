@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:tasks_app/bussiness_logic/database/remoteDatabase/endpoints.dart';
 import 'package:tasks_app/model/create_taskModel.dart';
 
+import '../../core/constants.dart';
 import '../../model/get_employeesModel.dart';
 import '../database/remoteDatabase/DioHelper.dart';
 
@@ -64,7 +65,8 @@ class AddtaskCubit extends Cubit<AddtaskState> {
 
   GetEmployeesModel? getEmployeesModel;
   //List<int> employeesID=[];
-  List<Map<String,int>> employees=[];
+ // List<Map<String,int>> employees=[];
+  List<EmployeeData> employees=[];
 
   void getEmployees() {
     DioHelper.getData(url: getEmployeesPath).then((value) {
@@ -74,7 +76,7 @@ class AddtaskCubit extends Cubit<AddtaskState> {
       for(var element in value.data['data']){
         //employeesID.add(element['id']);
        // employeesName.add(element['name']);
-        employees.add({element['name']:element['id']});
+        employees.add(EmployeeData.fromJson(element));
 }
       //print(employeesID);
       //print(employeesName);
@@ -89,14 +91,16 @@ class AddtaskCubit extends Cubit<AddtaskState> {
     });
   }
   String? selectedItem;
-  int? selectedValue;
   getIdValue(newValue){
     selectedItem = newValue;
     // Find the corresponding integer value
     selectedValue = employees
-        .firstWhere((item) => item.keys.first == newValue)
-        .values
-        .first;
+        .firstWhere((item) => item.email == newValue)
+        .id;
+    selectedDepartment = employees
+        .firstWhere((item) => item.email == newValue)
+        .departmentId;
+
     emit(GetValueSuccessfullyState());
   }
 

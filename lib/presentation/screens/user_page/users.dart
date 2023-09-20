@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasks_app/bussiness_logic/home/home_cubit.dart';
 
+import '../../../bussiness_logic/database/local_database/cache_helper.dart';
+import '../../../core/enums.dart';
+import '../../../model/get_departments_employessModel.dart';
 import '../../styles.dart';
 import '../../widgets/employee_info.dart';
 
-class UsersScreen extends StatelessWidget {
+class UsersScreen extends StatefulWidget {
   const UsersScreen({Key? key}) : super(key: key);
 
   @override
+  State<UsersScreen> createState() => _UsersScreenState();
+}
+
+class _UsersScreenState extends State<UsersScreen> {
+  late HomeCubit cubit;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cubit = HomeCubit.get(context);
+
+  }
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          //SizedBox(height: 1.h,),
-          departmentLine('department name', () { }),
-          SizedBox(height: 0.5.h,),
-          GridView.builder(
+    return Column(
+      children: [
+        SizedBox(height: 2.h,),
+        Visibility(
+          visible: CashHelper.getString(key: MySharedKeys.userType)=='manager',
+          child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -25,62 +42,71 @@ class UsersScreen extends StatelessWidget {
                 crossAxisSpacing: 1.4.w,
                 mainAxisSpacing: 2.h,
               ),
-              itemCount: 4,
+              itemCount: cubit.departmentEmployeesData.length,
               itemBuilder: (BuildContext ctx, index) {
-                return const EmployeeInfo(employeeName: 'Employee Name',
-                  userType: 'ADMIN', userEmail: 'user email',
-                  userPhone: 'user phone',
+                return  Column(
+                  children: [
+                    EmployeeInfo(employees: cubit.departmentEmployeesData[index],
 
+                    ),
+                  ],
                 );
               }
           ),
-          SizedBox(height: 2.h,),
-          departmentLine('department name', () { }),
-          SizedBox(height: 0.5.h,),
-          GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+        ),
+        Visibility(
+          visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+          child: Expanded(
+            child: ListView.separated(
               shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 5.h/8.w,
-                crossAxisCount: 2,
-                crossAxisSpacing: 1.4.w,
-                mainAxisSpacing: 2.h,
-              ),
-              itemCount: 4,
-              itemBuilder: (BuildContext ctx, index) {
-                return const EmployeeInfo(employeeName: 'Employee Name',
-                  userType: 'ADMIN', userEmail: 'user email',
-                  userPhone: 'user phone',
-
-                );
-              }
+                itemBuilder: (context,index){
+                  return BlocBuilder<HomeCubit,HomeState>(
+                    builder: (context, state){
+                      return view(() { }, cubit.departmentsAndEmployeesData[index]);
+                    },
+                  );
+                },
+                separatorBuilder:(context,index)=> SizedBox(height: 2.h,),
+                itemCount: cubit.departmentsAndEmployeesData.length
+            ),
           ),
-          SizedBox(height: 2.h,),
-          departmentLine('department name', () { }),
-          SizedBox(height: 0.5.h,),
-          GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 5.h/8.w,
-                crossAxisCount: 2,
-                crossAxisSpacing: 1.4.w,
-                mainAxisSpacing: 2.h,
-              ),
-              itemCount: 4,
-              itemBuilder: (BuildContext ctx, index) {
-                return const EmployeeInfo(employeeName: 'Employee Name',
-                  userType: 'ADMIN', userEmail: 'user email',
-                  userPhone: 'user phone',
+        ),
+        SizedBox(height: 2.h,),
 
-                );
-              }
-          ),
-        ],
-      ),
+      ],
     );
   }
-  Widget departmentLine(String name,void Function()? onPressed){
+
+
+  Widget view(void Function()? onPressed,DepartmentsAndEmployeesData departmentsAndEmployeesData){
+    return Column(
+      children: [
+        departmentLine(departmentsAndEmployeesData.name??"", () { }),
+        GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 5.h/8.w,
+              crossAxisCount: 2,
+              crossAxisSpacing: 1.4.w,
+              mainAxisSpacing: 2.h,
+            ),
+            itemCount: departmentsAndEmployeesData.employees?.length,
+            itemBuilder: (BuildContext ctx, index) {
+              return  Column(
+                children: [
+                  EmployeeInfo(employees: departmentsAndEmployeesData.employees![index],
+
+                  ),
+                ],
+              );
+            }
+        )
+
+      ],
+    );
+  }
+  Widget departmentLine(String? name,void Function()? onPressed){
     return Row(
       children: [
         Container(
@@ -89,7 +115,7 @@ class UsersScreen extends StatelessWidget {
           decoration: const BoxDecoration(color: AppTheme.greyColor),
         ),
         SizedBox(width: 1.w,),
-        Text(name,
+        Text(name??"",
           style: GoogleFonts.roboto(
             color: AppTheme.greyColor,
             fontSize: 12,
@@ -100,5 +126,4 @@ class UsersScreen extends StatelessWidget {
       ],
     );
   }
-
 }
