@@ -15,3 +15,8 @@ class TaskErrorState extends TaskState {}
 class UserLogoutSuccessfullyState extends TaskState {}
 
 class UserLogoutErrorrState extends TaskState {}
+
+class DeleteTaskLoadingState extends TaskState {}
+class DeleteTaskSuccessfullyState extends TaskState {}
+class DeleteTaskErrorState extends TaskState {}
+

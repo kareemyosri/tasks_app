@@ -94,7 +94,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UpdateUserLoadingState());
 
     if(CashHelper.getString(key: MySharedKeys.userType)=='admin'){
-      DioHelper.PostData(url: "${updateUserPath}${createUserModel?.data?.id}", data: {
+      DioHelper.PostData(url: "$updateUserPath$selectedValue", data: {
         'name': name,
         'email': email,
         'phone': phone,
@@ -117,14 +117,14 @@ class UserCubit extends Cubit<UserState> {
     }
 
     else{
-      DioHelper.PostData(url: "$updateUserPath$selectedValue", data: {
+      DioHelper.PostData(url: "$updateUserPath$selectedValueAsManager", data: {
         'name': name,
         'email': email,
         'phone': phone,
         "password": password,
         'user_type': "2",
         'user_status': status,
-        'department_id': selectedDepartment
+        //'department_id': selectedDepartment
       }).then((value) {
         emit(CreateUserLoadingState());
 
@@ -142,9 +142,26 @@ class UserCubit extends Cubit<UserState> {
 
 
   }
+
+
   changeUpdateUserValue(value) {
     buttonValueUpdate = value;
     emit(ChangeUserTypeState());
   }
+
+  deleteUser(int userId) {
+    emit(DeleteUserLoadingState());
+    DioHelper.DeleteData(url: '$DeleteUser${userId.toString()}').then((
+        value) {
+      //getTasks();
+
+      emit(DeleteUserSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteUserErrorState());
+    });
+  }
+
+
 
 }

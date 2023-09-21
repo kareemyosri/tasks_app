@@ -14,3 +14,8 @@ class ChangeUserTypeState extends UserState {}
 class UpdateUserLoadingState extends UserState {}
 class UpdateUserSuccessfullyState extends UserState {}
 class UpdateUserErrorState extends UserState {}
+
+
+class DeleteUserLoadingState extends UserState {}
+class DeleteUserSuccessfullyState extends UserState {}
+class DeleteUserErrorState extends UserState {}

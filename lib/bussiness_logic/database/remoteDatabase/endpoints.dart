@@ -16,6 +16,10 @@ const String getDepartmentsWithEmployees='/department/index';
 const String getEmployeesOfDepartment='/user/show-employees';
 
 const String getManagersNotAssigned='/user/show-managers';
+const String DeleteDepartment='/department/delete/';
+const String DeleteTask='/task/delete/';
+const String DeleteUser='/user/delete/';
+
 
 
 

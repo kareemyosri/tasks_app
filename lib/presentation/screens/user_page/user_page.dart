@@ -26,8 +26,8 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    cubit = HomeCubit.get(context);
-    cubit.getDepartmentsAndEmployees();
+    cubit = HomeCubit.get(context)..getDepartmentsAndEmployees();
+    //cubit.getDepartmentsAndEmployees();
     TaskCubit.get(context).getTasks();
   }
 

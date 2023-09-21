@@ -92,4 +92,18 @@ String type= CashHelper.getString(key: MySharedKeys.userType);
 
   }
 
+  deleteTask(int taskId) {
+    emit(DeleteTaskLoadingState());
+    DioHelper.DeleteData(url: '$DeleteTask${taskId.toString()}').then((
+        value) {
+    //  getDepartmentsAndEmployees();
+      getTasks();
+
+      emit(DeleteTaskSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteTaskErrorState());
+    });
+  }
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasks_app/bussiness_logic/home/home_cubit.dart';
 
 import '../../bussiness_logic/add_new_task/addtask_cubit.dart';
 import '../../bussiness_logic/database/local_database/cache_helper.dart';
@@ -181,20 +182,41 @@ class _UpdateUserState extends State<UpdateUser> {
               SizedBox(
                 height: 2.h,
               ),
-              BlocBuilder<AddtaskCubit, AddtaskState>(
-                builder: (context, state) {
-                  return DropdownButtonFormField(
-                    items: AddtaskCubit.get(context).employees
-                        .map((item) => DropdownMenuItem<String>(
-                      value: item.email,
-                      child: Text(item.email??""),
-                    ))
-                        .toList(),
-                    onChanged: (String? newValue) {
-                      AddtaskCubit.get(context).getIdValue(newValue);
-                    },
-                  );
-                },
+              Visibility(
+                visible: CashHelper.getString(key: MySharedKeys.userType)=='admin',
+                child: BlocBuilder<AddtaskCubit, AddtaskState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                      items: AddtaskCubit.get(context).employees
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item.email,
+                        child: Text(item.email??""),
+                      ))
+                          .toList(),
+                      onChanged: (String? newValue) {
+                        AddtaskCubit.get(context).getIdValue(newValue);
+                      },
+                    );
+                  },
+                ),
+              ),
+              Visibility(
+                visible: CashHelper.getString(key: MySharedKeys.userType)=='manager',
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return DropdownButtonFormField(
+                      items: HomeCubit.get(context).departmentEmployeesData
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item.email,
+                        child: Text(item.email??""),
+                      ))
+                          .toList(),
+                      onChanged: (String? newValue) {
+                        HomeCubit.get(context).getIdValue(newValue);
+                      },
+                    );
+                  },
+                ),
               ),
               SizedBox(height: 2.h,),
               CustomElevatedButton(() {

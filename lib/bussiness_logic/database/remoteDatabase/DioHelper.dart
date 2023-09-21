@@ -85,4 +85,29 @@ class DioHelper{
 
   }
 
+
+  static Future<Response> DeleteData ({
+    required String url,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? data,
+    String? token,
+
+  }) async
+  {
+    token=CashHelper.getString(key: MySharedKeys.token);
+
+    dio.options.headers= {
+      "Content-Type":"application/json",
+      "Accept":"application/json",
+      'Authorization':"Bearer ${token ?? ""}",
+    };
+
+    return await dio.delete(url,
+        data: data,
+        queryParameters: query
+    );
+
+
+  }
+
 }

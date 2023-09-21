@@ -9,8 +9,9 @@ import '../../core/enums.dart';
 import '../screens/single_task.dart';
 
 class TaskView extends StatelessWidget {
-  const TaskView({Key? key,  required this.taskData}) : super(key: key);
+  const TaskView({Key? key,  required this.taskData, this.onPressed}) : super(key: key);
   final TaskData taskData;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -75,7 +76,7 @@ class TaskView extends StatelessWidget {
                             ),
                             ),
                           ),
-                          IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert))
+                          IconButton(onPressed: onPressed, icon: const Icon(Icons.delete_outline))
                         ],
                       ),
                       Flexible(
