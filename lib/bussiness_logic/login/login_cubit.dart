@@ -41,4 +41,12 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginErrorState());
     });
   }
+
+
+  bool isPassword = true;
+  void changePasswordVisibility() {
+    isPassword = !isPassword;
+    emit(ChangePasswordVisibilityState());
+  }
+
 }

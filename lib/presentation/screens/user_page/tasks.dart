@@ -47,7 +47,10 @@ class _TasksState extends State<Tasks> {
               SizedBox(height: 2.h,),
               BlocBuilder<TaskCubit, TaskState>(
                 builder: (context, state) {
-                  if( cubit.employeeTasks.isEmpty){
+                  if( state is EmptyTask){
+                    return const Center(child: Text('No Tasks Yet'));
+                  }
+                  else if( state is TaskLoadingState){
                     return const Center(child: CircularProgressIndicator());
                   }
                   return ListView.separated(

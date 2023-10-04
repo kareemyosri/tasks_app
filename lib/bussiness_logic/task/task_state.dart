@@ -10,6 +10,8 @@ class ChangeTaskStatusState extends TaskState {}
 class TaskLoadingState extends TaskState {}
 class TaskSuccessfullyState extends TaskState {}
 class TaskErrorState extends TaskState {}
+class EmptyTask extends TaskState {}
+
 
 
 class UserLogoutSuccessfullyState extends TaskState {}

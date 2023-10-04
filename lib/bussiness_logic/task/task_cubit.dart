@@ -61,9 +61,14 @@ class TaskCubit extends Cubit<TaskState> {
          print(element);
       }
      // print(employeeTasks);
+      if(employeeTasks.isNotEmpty){
+        emit(TaskSuccessfullyState());
 
+      }
+      else{
+        emit(EmptyTask());
+      }
 
-      emit(TaskSuccessfullyState());
     }).catchError((error) {
       print(error.toString());
       emit(TaskErrorState());
