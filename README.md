@@ -1,13 +1,13 @@
 # tasks_app
 
-*Designed and developed a multi-level user interface with distinct roles: Admin,
+1. Designed and developed a multi-level user interface with distinct roles: Admin,
 Manager, and Employee.
-*Admin role encompassed user creation, task assignment, and departmental
+1. Admin role encompassed user creation, task assignment, and departmental
 management.
-*Managers had control over employee accounts, task allocation, and task detail
+1. Managers had control over employee accounts, task allocation, and task detail
 editing.
-*Employees efficiently managed their assigned tasks and updated task statuses.
-*Implemented API integration to optimize application functionality and data exchange.
+1. Employees efficiently managed their assigned tasks and updated task statuses.
+1. Implemented API integration to optimize application functionality and data exchange.
 
 ## Getting Started
 
