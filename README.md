@@ -1,6 +1,13 @@
 # tasks_app
 
-A new Flutter project.
+Designed and developed a multi-level user interface with distinct roles: Admin,
+Manager, and Employee.
+•Admin role encompassed user creation, task assignment, and departmental
+management.
+•Managers had control over employee accounts, task allocation, and task detail
+editing.
+•Employees efficiently managed their assigned tasks and updated task statuses.
+•Implemented API integration to optimize application functionality and data exchange.
 
 ## Getting Started
 
